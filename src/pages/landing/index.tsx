@@ -1,5 +1,7 @@
+import { useNavigate } from "react-router-dom";
 
 function LandingPage() {
+    const navigate = useNavigate();
     return (
         <div className="bg-main h-screen flex items-center justify-center text-white">
             <div className="text-center">
@@ -8,7 +10,11 @@ function LandingPage() {
                 <p className="text-lg text-white">
                     This is a demonstration project to build a user management application with Spring Boot, Spring Security, PostgresQL, and vite-react-ts.
                 </p>
-                <button className="animate-bounce mt-6 py-2 px-4 border hover:text-main hover:bg-white text-white rounded-full text-lg font-semibold focus:outline-none">
+                <button className="animate-bounce mt-6 py-2 px-4 border hover:text-main hover:bg-white text-white rounded-full text-lg font-semibold focus:outline-none"
+                    onClick={() => {
+                        navigate("/login")
+                    }}
+                >
                     Get Started
                 </button>
             </div>

@@ -1,5 +1,7 @@
 import { Navigate, RouterProvider, createBrowserRouter } from "react-router-dom";
 import LandingPage from "./pages/Landing";
+import Login from "./pages/auth/Login";
+import Register from "./pages/auth/Register";
 
 function App() {
 
@@ -7,7 +9,14 @@ function App() {
     {
       path: '/',
       element: <LandingPage />,
-
+    },
+    {
+      path: '/login',
+      element: <Login />,
+    },
+    {
+      path: '/register',
+      element: <Register />,
     },
     {
       path: '*',
