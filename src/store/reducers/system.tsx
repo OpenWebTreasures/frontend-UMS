@@ -1,7 +1,7 @@
 import { HIDE_SIDEBAR, SHOW_SIDEBAR } from "../actionTypes/system";
 
 interface SystemState {
-    sidebar: boolean;
+    sidebarOpen: boolean;
 }
 
 interface SystemAction {
@@ -11,7 +11,7 @@ interface SystemAction {
 
 
 const initialState: SystemState = {
-    sidebar: false,
+    sidebarOpen: false,
 };
 
 
@@ -20,14 +20,14 @@ const systemReducer = (state: SystemState = initialState, action: SystemAction) 
         case SHOW_SIDEBAR:
             return {
                 ...state,
-                sidebar: false,
+                sidebarOpen: true,
                 // ...action.payload,
             };
 
         case HIDE_SIDEBAR:
             return {
                 ...state,
-                sidebar: true,
+                sidebarOpen: false,
                 // ...action.payload,
             };
         default:

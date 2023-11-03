@@ -2,7 +2,7 @@ import { connect } from "react-redux";
 import { hideSidebar, showSidebar } from "../../../store/actions/system";
 import { bindActionCreators } from "redux";
 
-function Header({ sidebarstate, showSidebar, hideSidebar }) {
+function Header({ sidebarOpen, showSidebar, hideSidebar }) {
 
     return (
         <header className="sticky top-0 bg-white dark:bg-[#182235] border-b border-slate-200 dark:border-slate-700 z-30">
@@ -15,9 +15,9 @@ function Header({ sidebarstate, showSidebar, hideSidebar }) {
                         <button
                             className="text-slate-500 hover:text-slate-600 lg:hidden"
                             aria-controls="sidebar"
-                            aria-expanded={sidebarstate}
+                            aria-expanded={sidebarOpen}
                             onClick={(e) => {
-                                if (sidebarstate) {
+                                if (sidebarOpen) {
                                     console.log("hide !!!");
                                     hideSidebar();
 
@@ -49,7 +49,7 @@ function Header({ sidebarstate, showSidebar, hideSidebar }) {
 
 const mapStateToProps = state => {
     return {
-        sidebarstate: state.system.sidebar
+        sidebarOpen: state.system.sidebarOpen
     };
 };
 
