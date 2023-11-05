@@ -2,6 +2,11 @@ import { HIDE_SIDEBAR, SHOW_SIDEBAR } from "../actionTypes/system";
 
 interface SystemState {
     sidebarOpen: boolean;
+    username: string;
+    roles: string[];
+    firstname: string;
+    lastname: string;
+    token: string;
 }
 
 interface SystemAction {
@@ -12,6 +17,11 @@ interface SystemAction {
 
 const initialState: SystemState = {
     sidebarOpen: false,
+    username: "",
+    roles: [],
+    firstname: "",
+    lastname: "",
+    token: ""
 };
 
 

@@ -1,8 +1,15 @@
 import { connect } from "react-redux";
 import { hideSidebar, showSidebar } from "../../../store/actions/system";
-import { bindActionCreators } from "redux";
+import { Dispatch } from "redux";
+import { RootState } from "../../../store/reducers";
 
-function Header({ sidebarOpen, showSidebar, hideSidebar }) {
+interface HeaderProps {
+    sidebarOpen: boolean;
+    showSidebar: () => void;
+    hideSidebar: () => void;
+}
+
+function Header({ sidebarOpen, showSidebar, hideSidebar }: HeaderProps) {
 
     return (
         <header className="sticky top-0 bg-white dark:bg-[#182235] border-b border-slate-200 dark:border-slate-700 z-30">
@@ -16,15 +23,8 @@ function Header({ sidebarOpen, showSidebar, hideSidebar }) {
                             className="text-slate-500 hover:text-slate-600 lg:hidden"
                             aria-controls="sidebar"
                             aria-expanded={sidebarOpen}
-                            onClick={(e) => {
-                                if (sidebarOpen) {
-                                    console.log("hide !!!");
-                                    hideSidebar();
-
-                                } else {
-                                    console.log("show !!!");
-                                    showSidebar();
-                                }
+                            onClick={() => {
+                                sidebarOpen ? hideSidebar() : showSidebar();
                             }}
                         >
                             <span className="sr-only">Open sidebar</span>
@@ -47,13 +47,13 @@ function Header({ sidebarOpen, showSidebar, hideSidebar }) {
 }
 
 
-const mapStateToProps = state => {
+const mapStateToProps = (state: RootState) => {
     return {
         sidebarOpen: state.system.sidebarOpen
     };
 };
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch: Dispatch) => {
     return {
         showSidebar: () => dispatch(showSidebar()),
         hideSidebar: () => dispatch(hideSidebar()),

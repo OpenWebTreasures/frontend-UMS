@@ -1,9 +1,18 @@
-import React, { useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import { connect } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { hideSidebar, showSidebar } from "../../../store/actions/system";
+import { Dispatch } from "redux";
+import { RootState } from "../../../store/reducers";
 
-function SideBar({ sidebarOpen , hideSidebar }) {
+
+interface HeaderProps {
+    sidebarOpen: boolean;
+    hideSidebar: () => void;
+}
+
+
+function SideBar({ sidebarOpen, hideSidebar }: HeaderProps) {
 
     const sidebar = useRef(null);
     const trigger = useRef(null);
@@ -43,26 +52,26 @@ function SideBar({ sidebarOpen , hideSidebar }) {
                         </svg>
                     </button>
                     {/* Logo */}
-                    
+
                 </div>
                 <NavLink end to="/" className="block">
-                        <div className="flex content-center justify-center">
-                            <img src="/UMS-logo.png" style={{ width: 50, height: 50 }} alt="fireSpot" />
-                            <h1 className="font-bold text-amber-50 ml-2">User Managment System</h1>
-                        </div>
-                    </NavLink>
+                    <div className="flex content-center justify-center">
+                        <img src="/UMS-logo.png" style={{ width: 50, height: 50 }} alt="fireSpot" />
+                        <h1 className="font-bold text-amber-50 ml-2">User Managment System</h1>
+                    </div>
+                </NavLink>
             </div>
         </div>
     );
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state: RootState) => {
     return {
         sidebarOpen: state.system.sidebarOpen
     };
 };
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch: Dispatch) => {
     return {
         showSidebar: () => dispatch(showSidebar()),
         hideSidebar: () => dispatch(hideSidebar()),
@@ -70,4 +79,4 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 
-export default connect(mapStateToProps,mapDispatchToProps)(SideBar);
+export default connect(mapStateToProps, mapDispatchToProps)(SideBar);
