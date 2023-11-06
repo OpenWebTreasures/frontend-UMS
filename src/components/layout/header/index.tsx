@@ -3,13 +3,16 @@ import { hideSidebar, showSidebar } from "../../../store/actions/system";
 import { Dispatch } from "redux";
 import { RootState } from "../../../store/reducers";
 
+
 interface HeaderProps {
     sidebarOpen: boolean;
+    firstname: string;
+    lastname: string;
     showSidebar: () => void;
     hideSidebar: () => void;
 }
 
-function Header({ sidebarOpen, showSidebar, hideSidebar }: HeaderProps) {
+function Header({ sidebarOpen, showSidebar, hideSidebar, firstname, lastname }: HeaderProps) {
 
     return (
         <header className="sticky top-0 bg-white dark:bg-[#182235] border-b border-slate-200 dark:border-slate-700 z-30">
@@ -37,8 +40,12 @@ function Header({ sidebarOpen, showSidebar, hideSidebar }: HeaderProps) {
                     </div>
 
                     {/* right side */}
-                    <div>
+                    <div className="bg-last p-2 text-main rounded-full hover:bg-third hover:text-black">
+                        <div className="flex items-center justify-between">
+                            <span className=" font-bold mx-3">{firstname} {lastname}</span>
+                            <img className="w-8 h-8 rounded-full" src="/user-avatar-32.png" width="32" height="32" alt="User" />
 
+                        </div>
                     </div>
                 </div>
             </div>
@@ -49,7 +56,12 @@ function Header({ sidebarOpen, showSidebar, hideSidebar }: HeaderProps) {
 
 const mapStateToProps = (state: RootState) => {
     return {
-        sidebarOpen: state.system.sidebarOpen
+        sidebarOpen: state.system.sidebarOpen,
+        username: state.user.username,
+        roles: state.user.roles,
+        firstname: state.user.firstname,
+        lastname: state.user.lastname,
+        accessToken: state.user.accessToken,
     };
 };
 

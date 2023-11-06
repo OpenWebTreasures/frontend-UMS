@@ -5,9 +5,12 @@ const axiosInstance: AxiosInstance = axios.create({
     timeout: 30000,
 });
 
-// Define request interceptors
 axiosInstance.interceptors.request.use(
     (config: InternalAxiosRequestConfig) => {
+        const accessToken = localStorage.getItem('accessToken');
+        if (accessToken) {
+            config.headers.Authorization = `Bearer ${accessToken}`;
+        }
         return config;
     },
     (error) => {

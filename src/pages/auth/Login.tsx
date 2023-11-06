@@ -1,10 +1,12 @@
+/* eslint-disable react-refresh/only-export-components */
 import { connect } from "react-redux";
 import { setUser } from "../../store/actions/user";
 import { Dispatch } from "redux";
 import { RootState } from "../../store/reducers";
 import User from "../../interfaces/userInterface";
 import axios, { AxiosResponse } from "axios";
-import { Link } from "react-router-dom";
+import { Link, NavigateFunction, useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 interface Props {
     username: string;
@@ -12,10 +14,14 @@ interface Props {
     firstname: string;
     lastname: string;
     token: string;
-    setUser?:(user:Partial<User>)=> void;
+    setUser?: (user: Partial<User>) => void;
 }
 
 function Login(props: Partial<Props>) {
+
+    const navigate: NavigateFunction = useNavigate();
+
+    const [loginErr, setLoginErr] = useState(false);
 
     const handleLogin = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault(); // Prevent the default form submission behavior
@@ -28,17 +34,20 @@ function Login(props: Partial<Props>) {
             await axios.post("http://localhost:8080/api/v1/auth/login", {
                 username: usernameInput,
                 password: passwordInput,
-            }).then((response:AxiosResponse)=>{
+            }).then((response: AxiosResponse) => {
                 const accessToken = response.data.accessToken;
                 localStorage.setItem('accessToken', accessToken);
                 props.setUser?.({
                     accessToken: accessToken,
                 })
+            }).then(() => {
+                navigate("/dashboard")
             })
 
         } catch (error) {
             // Handle login errors (e.g., display an error message)
             console.error("Login failed:", error);
+            setLoginErr(true);
         }
     };
 
@@ -53,6 +62,13 @@ function Login(props: Partial<Props>) {
                 </div>
 
                 <div className="p-5 sm:mx-auto sm:w-full sm:max-w-sm">
+                    {loginErr && (<div className="bg-red-100 border border-red-400 text-red-700 my-2 px-4 py-3 rounded relative" role="alert">
+                        <strong className="font-bold">Holy smokes!</strong>
+                        <span className="block sm:inline"> Please Check and enter valid Credentials !</span>
+                        <span className="absolute top-0 bottom-0 right-0 px-4 py-3">
+                            <svg className="fill-current h-6 w-6 text-red-500" role="button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><title>Close</title><path d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z" /></svg>
+                        </span>
+                    </div>)}
                     <form className="space-y-6" onSubmit={handleLogin}>
                         <div>
                             <label htmlFor="username" className="block text-sm text-main font-bold leading-6 text-gray-900">Username</label>
@@ -90,7 +106,8 @@ const mapStateToProps = (state: RootState) => {
         roles: state.user.roles,
         firstname: state.user.firstname,
         lastname: state.user.lastname,
-        token: state.user.token,
+        nationality: state.user.nationality,
+        accessToken: state.user.accessToken,
     };
 };
 
