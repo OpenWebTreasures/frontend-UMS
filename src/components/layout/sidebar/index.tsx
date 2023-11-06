@@ -4,6 +4,7 @@ import { Location, NavLink, useLocation } from "react-router-dom";
 import { hideSidebar, showSidebar } from "../../../store/actions/system";
 import { Dispatch } from "redux";
 import { RootState } from "../../../store/reducers";
+import { DASHBOARD, ROLES, USERS } from "../../../routes";
 
 
 interface HeaderProps {
@@ -19,12 +20,6 @@ function SideBar({ sidebarOpen, hideSidebar }: HeaderProps) {
 
     const sidebar = useRef(null);
     const trigger = useRef(null);
-
-
-    useEffect(() => {
-        console.log("pathname", pathname)
-    }, [pathname])
-
 
     return (
         <div>
@@ -64,17 +59,17 @@ function SideBar({ sidebarOpen, hideSidebar }: HeaderProps) {
                     </div>
                 </NavLink>
 
-                
+
                 {/* Links */}
                 <div className="space-y-8">
                     {/* Pages group */}
                     <ul className="mt-3">
                         {/* Inbox */}
-                        <li className={`px-3 py-2 rounded-lg mb-0.5 last:mb-0 ${pathname == '/dashboard' && 'bg-main'}`}>
+                        <li className={`px-3 py-2 rounded-lg mb-0.5 last:mb-0 ${pathname == DASHBOARD && 'bg-main'}`}>
                             <NavLink
                                 end
-                                to="/dashboard"
-                                className={`block text-slate-200 truncate transition duration-150 ${pathname == '/dashboard' ? 'hover:text-slate-200' : 'hover:text-white'}`}
+                                to={DASHBOARD}
+                                className={`block text-slate-200 truncate transition duration-150 ${pathname == DASHBOARD ? 'hover:text-slate-200' : 'hover:text-white'}`}
                             >
                                 <div className="flex items-center">
                                     <span
@@ -82,11 +77,11 @@ function SideBar({ sidebarOpen, hideSidebar }: HeaderProps) {
                                 </div>
                             </NavLink>
                         </li>
-                        <li className={`px-3 py-2 rounded-lg mb-0.5 last:mb-0 ${pathname == '/dashboard/users' && 'bg-main'}`}>
+                        <li className={`px-3 py-2 rounded-lg mb-0.5 last:mb-0 ${pathname == USERS && 'bg-main'}`}>
                             <NavLink
                                 end
                                 to="/dashboard/users"
-                                className={`block text-slate-200 truncate transition duration-150 ${pathname == '/dashboard/users' ? 'hover:text-slate-200' : 'hover:text-white'}`}
+                                className={`block text-slate-200 truncate transition duration-150 ${pathname == USERS ? 'hover:text-slate-200' : 'hover:text-white'}`}
                             >
                                 <div className="flex items-center">
                                     <span
@@ -94,11 +89,11 @@ function SideBar({ sidebarOpen, hideSidebar }: HeaderProps) {
                                 </div>
                             </NavLink>
                         </li>
-                        <li className={`px-3 py-2 rounded-lg mb-0.5 last:mb-0 ${pathname == '/dashboard/roles' && 'bg-main'}`}>
+                        <li className={`px-3 py-2 rounded-lg mb-0.5 last:mb-0 ${pathname == ROLES && 'bg-main'}`}>
                             <NavLink
                                 end
                                 to="/dashboard/roles"
-                                className={`block text-slate-200 truncate transition duration-150 ${pathname == '/dashboard/roles' ? 'hover:text-slate-200' : 'hover:text-white'}`}
+                                className={`block text-slate-200 truncate transition duration-150 ${pathname == ROLES ? 'hover:text-slate-200' : 'hover:text-white'}`}
                             >
                                 <div className="flex items-center">
                                     <span

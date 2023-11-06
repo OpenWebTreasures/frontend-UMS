@@ -10,22 +10,23 @@ import { Provider } from 'react-redux';
 import store from './store/store.tsx';
 import UsersPage from './pages/userslist/index.tsx';
 import RolesPage from './pages/roleslist/index.tsx';
+import { DASHBOARD, LOGIN, REGISTER, ROLES, USERS } from './routes.tsx';
 
 const router = createBrowserRouter([
   {
-    path: '/login',
+    path: LOGIN,
     element: <Login />,
   },
   {
-    path: '/register',
+    path: REGISTER,
     element: <Register />,
   },
   {
-    path: '/dashboard',
+    path: DASHBOARD,
     element: <DashboardLayout />,
     children: [
-      { path: '/dashboard/users', element: <UsersPage /> },
-      { path: '/dashboard/roles', element: <RolesPage /> }
+      { path: USERS, element: <UsersPage /> },
+      { path: ROLES, element: <RolesPage /> }
     ]
   },
   {

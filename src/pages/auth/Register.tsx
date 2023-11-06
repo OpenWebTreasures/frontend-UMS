@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { LOGIN } from "../../routes";
 
 function Register() {
     return (
@@ -90,7 +91,7 @@ function Register() {
 
                     <p className="mt-6 text-center text-sm text-gray-500 text-main font-bold">
                         Already have an account?
-                        <Link to="/login" className="font-semibold leading-6 text-indigo-600 hover:text-main text-second font-bold">
+                        <Link to={LOGIN} className="font-semibold leading-6 text-indigo-600 hover:text-main text-second font-bold">
                             Sign in
                         </Link>
                     </p>

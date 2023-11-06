@@ -7,6 +7,7 @@ import User from "../../interfaces/userInterface";
 import axios, { AxiosResponse } from "axios";
 import { Link, NavigateFunction, useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { REGISTER } from "../../routes";
 
 interface Props {
     username: string;
@@ -91,7 +92,7 @@ function Login(props: Partial<Props>) {
 
                     <p className="mt-10 text-center text-sm text-gray-500 text-main font-bold">
                         Don't have an account?
-                        <Link to="/register" className="font-semibold leading-6 text-indigo-600 hover:text-main text-second font-bold"> ( Sign up )</Link>
+                        <Link to={REGISTER} className="font-semibold leading-6 text-indigo-600 hover:text-main text-second font-bold"> ( Sign up )</Link>
                     </p>
                 </div>
             </div>
@@ -103,10 +104,6 @@ function Login(props: Partial<Props>) {
 const mapStateToProps = (state: RootState) => {
     return {
         username: state.user.username,
-        roles: state.user.roles,
-        firstname: state.user.firstname,
-        lastname: state.user.lastname,
-        nationality: state.user.nationality,
         accessToken: state.user.accessToken,
     };
 };

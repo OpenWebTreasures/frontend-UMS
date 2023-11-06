@@ -8,7 +8,8 @@ import User from "../../interfaces/userInterface";
 import { connect } from "react-redux";
 import axiosInstance from "../../axios-instance";
 import { AxiosError, AxiosResponse } from "axios";
-import { Outlet, useNavigate } from "react-router-dom";
+import { NavigateFunction, Outlet, useNavigate } from "react-router-dom";
+import { LOGIN, ME } from "../../routes";
 
 interface Props {
     setUser: (user: Partial<User>) => void;
@@ -22,13 +23,13 @@ function DashboardLayout({ setUser }: Props) {
 
     useEffect(() => {
 
-        axiosInstance.get("api/v1/users/me").then((response: AxiosResponse) => {
+        axiosInstance.get(ME).then((response: AxiosResponse) => {
             setUser({
                 ...response.data
             })
         }).catch((error: AxiosError) => {
             console.log("failed to auth", error)
-            navigate("/login")
+            navigate(LOGIN)
         })
     }, [])
 

@@ -13,8 +13,12 @@ const initialState: User = {
     roles: [],
     firstname: "",
     lastname: "",
-    nationality:"",
-    accessToken: ""
+    nationality: "",
+    accessToken: "",
+    id: "",
+    email: "",
+    datenaissance: new Date,
+    adress: ""
 };
 
 
