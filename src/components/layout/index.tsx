@@ -8,7 +8,7 @@ import User from "../../interfaces/userInterface";
 import { connect } from "react-redux";
 import axiosInstance from "../../axios-instance";
 import { AxiosError, AxiosResponse } from "axios";
-import { useNavigate } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 
 interface Props {
     setUser: (user: Partial<User>) => void;
@@ -39,7 +39,7 @@ function DashboardLayout({ setUser }: Props) {
                 <Header />
                 <main>
                     <div className="px-4 sm:px-6 lg:px-8 py-8 w-full max-w-9xl mx-auto">
-                        {/* <Outlet /> */}
+                        <Outlet />
                     </div>
                 </main>
             </div>
