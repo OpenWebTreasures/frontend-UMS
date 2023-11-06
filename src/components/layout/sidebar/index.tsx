@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 import { connect } from "react-redux";
-import { NavLink } from "react-router-dom";
+import { Location, NavLink, useLocation } from "react-router-dom";
 import { hideSidebar, showSidebar } from "../../../store/actions/system";
 import { Dispatch } from "redux";
 import { RootState } from "../../../store/reducers";
@@ -14,13 +14,16 @@ interface HeaderProps {
 
 function SideBar({ sidebarOpen, hideSidebar }: HeaderProps) {
 
+    const location: Location = useLocation();
+    const { pathname } = location;
+
     const sidebar = useRef(null);
     const trigger = useRef(null);
 
 
     useEffect(() => {
-        console.log(sidebarOpen)
-    }, [sidebarOpen])
+        console.log("pathname", pathname)
+    }, [pathname])
 
 
     return (
@@ -60,6 +63,51 @@ function SideBar({ sidebarOpen, hideSidebar }: HeaderProps) {
                         <h1 className="font-bold text-amber-50 ml-2">User Managment System</h1>
                     </div>
                 </NavLink>
+
+                
+                {/* Links */}
+                <div className="space-y-8">
+                    {/* Pages group */}
+                    <ul className="mt-3">
+                        {/* Inbox */}
+                        <li className={`px-3 py-2 rounded-lg mb-0.5 last:mb-0 ${pathname == '/dashboard' && 'bg-main'}`}>
+                            <NavLink
+                                end
+                                to="/dashboard"
+                                className={`block text-slate-200 truncate transition duration-150 ${pathname == '/dashboard' ? 'hover:text-slate-200' : 'hover:text-white'}`}
+                            >
+                                <div className="flex items-center">
+                                    <span
+                                        className="text-white font-medium ml-3">Dashboard</span>
+                                </div>
+                            </NavLink>
+                        </li>
+                        <li className={`px-3 py-2 rounded-lg mb-0.5 last:mb-0 ${pathname == '/dashboard/users' && 'bg-main'}`}>
+                            <NavLink
+                                end
+                                to="/dashboard/users"
+                                className={`block text-slate-200 truncate transition duration-150 ${pathname == '/dashboard/users' ? 'hover:text-slate-200' : 'hover:text-white'}`}
+                            >
+                                <div className="flex items-center">
+                                    <span
+                                        className="text-white font-medium ml-3">Users List</span>
+                                </div>
+                            </NavLink>
+                        </li>
+                        <li className={`px-3 py-2 rounded-lg mb-0.5 last:mb-0 ${pathname == '/dashboard/roles' && 'bg-main'}`}>
+                            <NavLink
+                                end
+                                to="/dashboard/roles"
+                                className={`block text-slate-200 truncate transition duration-150 ${pathname == '/dashboard/roles' ? 'hover:text-slate-200' : 'hover:text-white'}`}
+                            >
+                                <div className="flex items-center">
+                                    <span
+                                        className="text-white font-medium ml-3">Roles List</span>
+                                </div>
+                            </NavLink>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
     );
