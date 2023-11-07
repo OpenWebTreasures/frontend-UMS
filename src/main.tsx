@@ -10,7 +10,10 @@ import { Provider } from 'react-redux';
 import store from './store/store.tsx';
 import UsersPage from './pages/userslist/index.tsx';
 import RolesPage from './pages/roleslist/index.tsx';
-import { DASHBOARD, LOGIN, REGISTER, ROLES, USERS } from './routes.tsx';
+import { DASHBOARD, LOGIN, PROFILE, REGISTER, ROLES, ROLE_DETAILS, USERS, USER_DETAILS } from './routes.tsx';
+import UserDetails from './pages/userdetails/index.tsx';
+import RoleDetails from './pages/roledetails/index.tsx';
+import ProfilePage from './pages/profile/index.tsx';
 
 const router = createBrowserRouter([
   {
@@ -25,8 +28,12 @@ const router = createBrowserRouter([
     path: DASHBOARD,
     element: <DashboardLayout />,
     children: [
+      { path: PROFILE, element: <ProfilePage /> },
       { path: USERS, element: <UsersPage /> },
-      { path: ROLES, element: <RolesPage /> }
+      { path: USER_DETAILS, element: <UserDetails /> },
+      { path: ROLES, element: <RolesPage /> },
+      { path: ROLE_DETAILS, element: <RoleDetails /> },
+
     ]
   },
   {
