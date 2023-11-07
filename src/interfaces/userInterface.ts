@@ -10,6 +10,6 @@ interface User {
     adress: string;
     accessToken: string;
     createdOn:Date;
-    lastUpdatedOn:Date
+    lastUpdatedOn:Date;
 }
 export default User;

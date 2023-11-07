@@ -2,6 +2,8 @@ import { connect } from "react-redux";
 import { hideSidebar, showSidebar } from "../../../store/actions/system";
 import { Dispatch } from "redux";
 import { RootState } from "../../../store/reducers";
+import { PROFILE } from "../../../routes";
+import { Link } from "react-router-dom";
 
 
 interface HeaderProps {
@@ -40,13 +42,12 @@ function Header({ sidebarOpen, showSidebar, hideSidebar, firstname, lastname }: 
                     </div>
 
                     {/* right side */}
-                    <div className="bg-last p-2 text-main rounded-full hover:bg-third hover:text-black">
+                    <Link to={PROFILE} className="bg-last p-2 text-main rounded-full hover:bg-third hover:text-black">
                         <div className="flex items-center justify-between">
                             <span className=" font-bold mx-3">{firstname} {lastname}</span>
                             <img className="w-8 h-8 rounded-full" src="/user-avatar-32.png" width="32" height="32" alt="User" />
-
                         </div>
-                    </div>
+                    </Link>
                 </div>
             </div>
         </header>
