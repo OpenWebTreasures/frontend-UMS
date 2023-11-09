@@ -1,9 +1,7 @@
-import Role from "./roleInterface";
-
 interface User {
     id: string;
     username: string;
-    roles: Role[];
+    roleNames: string[];
     firstname: string;
     lastname: string;
     email: string;

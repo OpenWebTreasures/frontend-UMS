@@ -41,7 +41,7 @@ function UsersPage() {
                         <tr className="dark:bg-gray-800 dark:border-gray-700 hover:bg-last" key={user.id} onClick={() => { navigate(USER_DETAILS.replace(':userid', user.id.toString())) }} style={{ cursor: "pointer" }}>
                             <td className="px-6 py-4">#{user.id}</td>
                             <td className="px-6 py-4 font-medium text-main whitespace-nowrap">{user.firstname + " " + user.lastname}</td>
-                            <td className="px-6 py-4">{user.roles.map((el, index) => (<span key={index}>* {el.name}</span>))}</td>
+                            <td className="px-6 py-4">{user.roleNames.map((el, index) => (<span key={index}>* {el}</span>))}</td>
                             <td className="px-6 py-4 whitespace-nowrap">{user.createdOn.toString()}</td>
                             <td className="px-6 py-4 whitespace-nowrap">{user.lastUpdatedOn.toString()}</td>
                         </tr>

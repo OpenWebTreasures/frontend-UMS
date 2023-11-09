@@ -11,3 +11,11 @@ export const GET_ALL_ROLES = "api/v1/roles";
 export const ASSIGN_FEATURE = "api/v1/roles/assignfeature";
 export const REVOKE_FEATURE = "api/v1/roles/assignfeature";
 export const GET_ROLE_BY_NAME = "api/v1/roles/{name}";
+
+
+export const CHANGE_ANY_USER_PASSWORD = "api/v1/users/changeuserpassword";
+export const CHANGE_SELF_PASSWORD = "api/v1/users/changeselfpassword";
+export const CHANGE_USER_ROLES = "api/v1/users/changeroles";
+
+export const UPDATE_SELF_USER_DETAILS = "api/v1/users/updateselfdetails"
+export const UPDATE_ANY_USER_DETAILS = "api/v1/users/updateuserdetails/{username}"
