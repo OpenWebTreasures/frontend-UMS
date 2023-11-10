@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 import Select, { MultiValue } from 'react-select';
 import { useParams } from "react-router-dom";
-import axiosInstance from "../../axios-instance";
-import User from "../../interfaces/userInterface";
+import axiosInstance from "../axios-instance";
+import User from "../interfaces/userInterface";
 import { MdSecurity } from "react-icons/md"; GiPoliceBadge
 import { GiPoliceBadge } from "react-icons/gi";
-import { CHANGE_ANY_USER_PASSWORD, CHANGE_USER_ROLES, GET_ALL_ROLES, GET_USER_BY_ID, UPDATE_ANY_USER_DETAILS } from "../../Apis";
+import { CHANGE_ANY_USER_PASSWORD, CHANGE_USER_ROLES, GET_ALL_ROLES, GET_USER_BY_ID, UPDATE_ANY_USER_DETAILS } from "../Apis";
 import { AxiosResponse } from "axios";
-import Role from "../../interfaces/roleInterface";
+import Role from "../interfaces/roleInterface";
 
 
 
@@ -19,6 +19,7 @@ function UserDetails() {
     const [selectedRoles, setSelectedRoles] = useState<MultiValue<{ value: string; label: string; }>>([]);
 
     const [pwdMessage, setpwdMessage] = useState<null | { status: boolean; message: string; }>(null);
+    const [detailsMessage, setdetailsMessage] = useState<null | { status: boolean; message: string; }>(null);
 
 
     const { userid } = useParams();
@@ -74,7 +75,10 @@ function UserDetails() {
             adress: event.currentTarget.adress.value,
             username: event.currentTarget.username.value,
         }).then((response: AxiosResponse) => {
+            (response?.status && (response?.status === 200) )? setdetailsMessage({ status: true, message: "Details changed Successfully" }) : setdetailsMessage({ status: false, message: "Something Went Wrong !" });
 
+        }).catch(()=>{
+            setdetailsMessage({ status: false, message: "Something Went Wrong !" })
         })
     }
 
@@ -83,6 +87,13 @@ function UserDetails() {
         <div className="flex flex-wrap justify-center ">
             <div className="p-4 m-2 rounded-lg border-2 bg-blue-50 lg:w-1/2 md:w-full sm:w-full max-w-[550px]">
                 <h1 className="text-3xl font-bold">User Details : <span className="text-black"></span></h1>
+                {
+                    detailsMessage && (
+                        <div className={"p-4 mb-4 text-sm border-2 rounded-lg " + (detailsMessage.status ? "text-green-800 bg-green-50" : "text-red-800 bg-red-50")} role="alert">
+                            <span className="font-medium">{detailsMessage.status ? "Great " : "Error ! "}</span> {detailsMessage.message}
+                        </div>
+                    )
+                }
                 <form onSubmit={handleChangeDetails} className="p-4">
                     <label className="block">
                         <span className="font-medium text-slate-700 pb-2">
@@ -203,12 +214,12 @@ function UserDetails() {
                     <p className="text-slate-500">Fill up the form to change the password</p>
                     {
                         pwdMessage && (
-                            <div className={"p-4 mb-4 text-sm rounded-lg" + (pwdMessage.status ? "text-green-800 bg-green-50" : "text-red-800 bg-red-50")} role="alert">
+                            <div className={"p-4 text-sm border-2 rounded-lg " + (pwdMessage.status ? "text-green-800 bg-green-50" : "text-red-800 bg-red-50")} role="alert">
                                 <span className="font-medium">{pwdMessage.status ? "Great " : "Error ! "}</span> {pwdMessage.message}
                             </div>
                         )
                     }
-                    <form onSubmit={handleChangePassword} className="mt-10">
+                    <form onSubmit={handleChangePassword} className="mt-2">
                         <div className="flex flex-col space-y-5">
                             <label htmlFor="password">
                                 <p className="font-medium text-slate-700 pb-2">New Password</p>

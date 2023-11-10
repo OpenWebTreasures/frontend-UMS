@@ -8,11 +8,11 @@ import Register from './pages/auth/Register.tsx';
 import DashboardLayout from './components/layout/index.tsx';
 import { Provider } from 'react-redux';
 import store from './store/store.tsx';
-import UsersPage from './pages/userslist/index.tsx';
-import RolesPage from './pages/roleslist/index.tsx';
+import UsersPage from './pages/userslist.tsx';
+import RolesPage from './pages/roleslist.tsx';
 import { DASHBOARD, LOGIN, PROFILE, REGISTER, ROLES, ROLE_DETAILS, USERS, USER_DETAILS } from './routes.tsx';
-import UserDetails from './pages/userdetails/index.tsx';
-import RoleDetails from './pages/roledetails/index.tsx';
+import UserDetails from './pages/userdetails.tsx';
+import RoleDetails from './pages/roledetails.tsx';
 import ProfilePage from './pages/profile/index.tsx';
 
 const router = createBrowserRouter([

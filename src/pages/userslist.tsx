@@ -1,11 +1,11 @@
 
 import { useEffect, useState } from "react";
 import { AiFillPlusCircle, AiOutlineCaretRight } from "react-icons/ai";
-import axiosInstance from "../../axios-instance";
+import axiosInstance from "../axios-instance";
 import { AxiosResponse } from "axios";
-import User from "../../interfaces/userInterface";
+import User from "../interfaces/userInterface";
 import { useNavigate } from "react-router-dom";
-import { USER_DETAILS } from "../../routes";
+import { USER_DETAILS } from "../routes";
 
 function UsersPage() {
 

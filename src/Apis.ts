@@ -9,7 +9,7 @@ export const GET_ALL_FEATURES = "api/v1/features";
 export const CREATE_ROLE = "api/v1/roles";
 export const GET_ALL_ROLES = "api/v1/roles";
 export const ASSIGN_FEATURE = "api/v1/roles/assignfeature";
-export const REVOKE_FEATURE = "api/v1/roles/assignfeature";
+export const REVOKE_FEATURE = "api/v1/roles/revokefeature";
 export const GET_ROLE_BY_NAME = "api/v1/roles/{name}";
 
 
