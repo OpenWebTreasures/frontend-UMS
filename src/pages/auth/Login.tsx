@@ -32,7 +32,7 @@ function Login(props: Partial<Props>) {
         const passwordInput = event.currentTarget.password.value;
 
         try {
-            await axios.post("http://localhost:8080/api/v1/auth/login", {
+            await axios.post("http://localhost:8080/auth/login", {
                 username: usernameInput,
                 password: passwordInput,
             }).then((response: AxiosResponse) => {

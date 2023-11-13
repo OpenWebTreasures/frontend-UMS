@@ -17,7 +17,6 @@ function RolesPage() {
             setRoles(resposne.data)
         }).catch((error: AxiosError) => {
             console.log(error)
-            alert("error")
         })
     }, [])
 

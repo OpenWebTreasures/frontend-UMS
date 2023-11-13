@@ -13,7 +13,7 @@ import RolesPage from './pages/roleslist.tsx';
 import { DASHBOARD, LOGIN, PROFILE, REGISTER, ROLES, ROLE_DETAILS, USERS, USER_DETAILS } from './routes.tsx';
 import UserDetails from './pages/userdetails.tsx';
 import RoleDetails from './pages/roledetails.tsx';
-import ProfilePage from './pages/profile/index.tsx';
+import ProfilePage from './pages/profile.tsx';
 
 const router = createBrowserRouter([
   {

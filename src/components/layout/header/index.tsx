@@ -3,7 +3,9 @@ import { hideSidebar, showSidebar } from "../../../store/actions/system";
 import { Dispatch } from "redux";
 import { RootState } from "../../../store/reducers";
 import { PROFILE } from "../../../routes";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { removeUser } from "../../../store/actions/user";
+
 
 
 interface HeaderProps {
@@ -12,9 +14,20 @@ interface HeaderProps {
     lastname: string;
     showSidebar: () => void;
     hideSidebar: () => void;
+    removeUser: () => void;
 }
 
-function Header({ sidebarOpen, showSidebar, hideSidebar, firstname, lastname }: HeaderProps) {
+function Header({ sidebarOpen, showSidebar, hideSidebar, removeUser, firstname, lastname }: HeaderProps) {
+
+    const navigate = useNavigate();
+
+    const handleLogout = () => {
+        localStorage.clear();
+        removeUser()
+        navigate("/")
+    };
+
+
 
     return (
         <header className="sticky top-0 bg-white dark:bg-[#182235] border-b border-slate-200 dark:border-slate-700 z-30">
@@ -41,13 +54,14 @@ function Header({ sidebarOpen, showSidebar, hideSidebar, firstname, lastname }: 
                         </button>
                     </div>
 
-                    {/* right side */}
-                    <Link to={PROFILE} className="bg-last p-2 text-main rounded-full hover:bg-third hover:text-black">
-                        <div className="flex items-center justify-between">
-                            <span className=" font-bold mx-3">{firstname} {lastname}</span>
-                            <img className="w-8 h-8 rounded-full" src="/user-avatar-32.png" width="32" height="32" alt="User" />
-                        </div>
-                    </Link>
+
+                    <div className="flex items-center justify-between min-w-[250px] border-2 p-1 rounded-full px-3">
+                        <span className="font-bold text-main"> {firstname} {lastname} </span>
+                        <Link to={PROFILE} className="border-2 border-main bg-white hover:scale-110 p-2 rounded-full"><img className="max-w-[25px]" src="./profile.svg" alt="" /></Link>
+                        <button onClick={handleLogout} className="border-2 border-red-500 bg-white hover:scale-110 p-2 rounded-full"><img className="max-w-[25px]" src="./logout.svg" alt="" /></button>
+                    </div>
+
+
                 </div>
             </div>
         </header>
@@ -59,7 +73,6 @@ const mapStateToProps = (state: RootState) => {
     return {
         sidebarOpen: state.system.sidebarOpen,
         username: state.user.username,
-        roles: state.user.roles,
         firstname: state.user.firstname,
         lastname: state.user.lastname,
         accessToken: state.user.accessToken,
@@ -70,6 +83,7 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
     return {
         showSidebar: () => dispatch(showSidebar()),
         hideSidebar: () => dispatch(hideSidebar()),
+        removeUser: () => dispatch(removeUser()),
     };
 }
 

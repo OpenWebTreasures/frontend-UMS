@@ -1,3 +1,5 @@
+export const BASEURL = 'http://localhost:8080/';
+
 export const DASHBOARD = "/dashboard";
 export const PROFILE = "/dashboard/profile";
 

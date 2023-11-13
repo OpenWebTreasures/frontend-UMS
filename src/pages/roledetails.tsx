@@ -56,7 +56,7 @@ function RoleDetails() {
 
                 {
                     allFeatures?.map((el: string, index: number) => (
-                        <button onClick={() => { handleClick(el) }} key={index} className={"p-4 m-2 max-w-lg min-w-xs text-sm rounded-lg hover:scale-105 flex items-center " + (role?.features.includes(el) ? "text-green-800 bg-green-50" : "text-red-800 bg-red-50")} role="alert">
+                        <button onClick={() => { handleClick(el) }} key={index} className={"p-4 m-2 max-w-lg min-w-xs text-sm rounded-lg border-2 hover:scale-110 " + (role?.features.includes(el) ? "text-green-800 bg-green-50" : "text-red-800 bg-red-50")} role="alert">
                             <span className="font-medium text-black">{el}</span>
                         </button>
                     ))

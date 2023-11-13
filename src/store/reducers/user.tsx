@@ -10,7 +10,7 @@ interface userAction {
 
 const initialState: User = {
     username: "",
-    roles: [],
+    roleNames: [],
     firstname: "",
     lastname: "",
     nationality: "",
@@ -18,7 +18,9 @@ const initialState: User = {
     id: "",
     email: "",
     datenaissance: new Date,
-    adress: ""
+    adress: "",
+    createdOn: new Date(),
+    lastUpdatedOn: new Date()
 };
 
 

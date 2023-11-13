@@ -1,7 +1,44 @@
 import { Link } from "react-router-dom";
-import { LOGIN } from "../../routes";
+import { BASEURL, LOGIN } from "../../routes";
+import { useState } from "react";
+import axios from "axios";
 
 function Register() {
+
+    const [formdata, setFormdata] = useState<{ username: "", email: "", password: "", confirmPassword: "" } | { username: string; email: string; password: string; confirmPassword: string; }>({});
+
+    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+
+        if (formdata && formdata.password !== formdata.confirmPassword) {
+            console.error('Password and Confirm Password do not match');
+            return;
+        }
+        console.log(formdata)
+
+        await axios.post((BASEURL + "auth/register"), { username: formdata?.username, email: formdata?.email, password: formdata?.password })
+            .then(response => {
+                console.log("Response", response);
+            })
+            .catch((err) => {
+                console.error('Error', err);
+            });
+    };
+
+    const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = event.target;
+        setFormdata((prevFormData) => {
+            if (prevFormData === null) {
+                return null;
+            }
+
+            return {
+                ...prevFormData,
+                [name]: value,
+            };
+        });
+    };
+
     return (
         <div className="bg-main h-screen flex items-center justify-center">
             <div className="p-5 bg-white rounded-lg container max-w-sm mx-auto flex-1 flex flex-col items-center justify-center px-2 text-white">
@@ -14,7 +51,7 @@ function Register() {
                 </div>
 
                 <div className="p-5 sm:mx-auto sm:w-full sm:max-w-sm">
-                    <form className="space-y-6" action="#" method="POST">
+                    <form className="space-y-6" onSubmit={handleSubmit}>
                         <div>
                             <label htmlFor="username" className="block text-sm text-main font-bold leading-6 text-gray-900">
                                 Username
@@ -26,6 +63,7 @@ function Register() {
                                     type="text"
                                     autoComplete="username"
                                     required
+                                    onChange={handleChange}
                                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                 />
                             </div>
@@ -42,6 +80,7 @@ function Register() {
                                     type="email"
                                     autoComplete="email"
                                     required
+                                    onChange={handleChange}
                                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                 />
                             </div>
@@ -58,6 +97,7 @@ function Register() {
                                     type="password"
                                     autoComplete="new-password"
                                     required
+                                    onChange={handleChange}
                                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                 />
                             </div>
@@ -74,6 +114,7 @@ function Register() {
                                     type="password"
                                     autoComplete="new-password"
                                     required
+                                    onChange={handleChange}
                                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                 />
                             </div>
