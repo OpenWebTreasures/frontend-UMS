@@ -23,8 +23,8 @@ function Header({ sidebarOpen, showSidebar, hideSidebar, removeUser, firstname, 
 
     const handleLogout = () => {
         localStorage.clear();
-        removeUser()
-        navigate("/")
+        removeUser();
+        navigate("/");
     };
 
 
