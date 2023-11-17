@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import './index.css'
-import { RouterProvider, createBrowserRouter, } from 'react-router-dom';
+import { Navigate, Outlet, RouterProvider, createBrowserRouter, } from 'react-router-dom';
 import LandingPage from './pages/Landing/index.tsx';
 import Login from './pages/auth/Login.tsx';
 import Register from './pages/auth/Register.tsx';
@@ -14,6 +14,15 @@ import { DASHBOARD, LOGIN, PROFILE, REGISTER, ROLES, ROLE_DETAILS, USERS, USER_D
 import UserDetails from './pages/userdetails.tsx';
 import RoleDetails from './pages/roledetails.tsx';
 import ProfilePage from './pages/profile.tsx';
+import AuthProvider, { useAuth } from './authProvider.tsx';
+
+export const ProtectedRoute = () => {
+  const { token } = useAuth();
+  if (!token) {
+    return <Navigate to="/login" />;
+  }
+  return <Outlet />;
+};
 
 const router = createBrowserRouter([
   {
@@ -24,18 +33,26 @@ const router = createBrowserRouter([
     path: REGISTER,
     element: <Register />,
   },
+
   {
     path: DASHBOARD,
-    element: <DashboardLayout />,
+    element: <AuthProvider />,
     children: [
-      { path: PROFILE, element: <ProfilePage /> },
-      { path: USERS, element: <UsersPage /> },
-      { path: USER_DETAILS, element: <UserDetails /> },
-      { path: ROLES, element: <RolesPage /> },
-      { path: ROLE_DETAILS, element: <RoleDetails /> },
+      {
+        path: DASHBOARD,
+        element: <DashboardLayout />,
+        children: [
+          { path: PROFILE, element: <ProfilePage /> },
+          { path: USERS, element: <UsersPage /> },
+          { path: USER_DETAILS, element: <UserDetails /> },
+          { path: ROLES, element: <RolesPage /> },
+          { path: ROLE_DETAILS, element: <RoleDetails /> },
 
+        ]
+      },
     ]
   },
+
   {
     path: '/',
     element: <LandingPage />,
