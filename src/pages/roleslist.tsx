@@ -37,7 +37,7 @@ function RolesPage() {
                 </thead>
                 <tbody>
                     {roles.map((role: Role, index: number) => (
-                        <tr className="dark:bg-gray-800 dark:border-gray-700 hover:bg-last" key={role.id} onClick={() => { navigate(ROLE_DETAILS.replace(":roleid", role.name)) }} style={{ cursor: "pointer" }}>
+                        <tr className="dark:bg-gray-800 dark:border-gray-700 hover:bg-last" key={index} onClick={() => { navigate(ROLE_DETAILS.replace(":roleid", role.name)) }} style={{ cursor: "pointer" }}>
                             <td className="px-6 py-4"># {index+1}{role.id}</td>
                             <td className="px-6 py-4 font-medium text-main whitespace-nowrap">{role.name}</td>
                             <td className="px-6 py-4 hidden md:table-cell">{role.createdOn.toString()}</td>

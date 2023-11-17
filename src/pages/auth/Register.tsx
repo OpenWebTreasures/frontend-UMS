@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { BASEURL, LOGIN } from "../../routes";
 import { ChangeEvent, useState } from "react";
 import axios from "axios";
@@ -18,6 +18,10 @@ interface FormData {
 }
 
 function Register() {
+
+  const navigate = useNavigate();
+
+  const [errorMessage, setErrorMessage] = useState<null | string>(null);
 
   const [formdata, setFormdata] = useState<FormData>({
     firstname: "",
@@ -51,12 +55,15 @@ function Register() {
     };
 
     try {
-      const response = await axios.post(`${BASEURL}auth/register`, userEntityDto);
-      console.log("Response", response);
+      await axios.post(`${BASEURL}auth/register`, userEntityDto).then(() => {
+        navigate(LOGIN);
+      })
     } catch (error) {
-      console.error('Error', error);
+      console.log("errrrrrrrrrrrrrrrrr")
+      setErrorMessage("Erreur lors de la creation du compte!");
     }
   };
+
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     setFormdata((prevFormData) => {
@@ -73,7 +80,7 @@ function Register() {
 
   return (
     <div className="bg-main h-screen flex items-center justify-center">
-      <div className="p-5 bg-white rounded-lg container mx-auto max-w-[850px] px-2 text-white">
+      <div className="p-5 bg-white rounded-lg container mx-auto max-w-[850px] px-2 text-white flex justify-center flex-wrap">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <img className="w-1/2 mx-auto mb-4 max-w-xs" src="/UMS-logo.png" alt="Your Company" />
 
@@ -81,7 +88,7 @@ function Register() {
             Create an Account
           </h2>
         </div>
-
+        {errorMessage && <div className="p-2 rounded-lg bg-red-100 w-full text-red-400 font-bold flex justify-center max-w-lg">{errorMessage}</div>}
         <div className="p-5 w-full">
           <form className="container min-w-sm" onSubmit={handleSubmit}>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">

@@ -14,15 +14,9 @@ import { DASHBOARD, LOGIN, PROFILE, REGISTER, ROLES, ROLE_DETAILS, USERS, USER_D
 import UserDetails from './pages/userdetails.tsx';
 import RoleDetails from './pages/roledetails.tsx';
 import ProfilePage from './pages/profile.tsx';
-import AuthProvider, { useAuth } from './authProvider.tsx';
+import AuthGard from './authProvider.tsx';
 
-export const ProtectedRoute = () => {
-  const { token } = useAuth();
-  if (!token) {
-    return <Navigate to="/login" />;
-  }
-  return <Outlet />;
-};
+
 
 const router = createBrowserRouter([
   {
@@ -36,7 +30,7 @@ const router = createBrowserRouter([
 
   {
     path: DASHBOARD,
-    element: <AuthProvider />,
+    element: <AuthGard />,
     children: [
       {
         path: DASHBOARD,

@@ -1,5 +1,5 @@
-import axios, { AxiosResponse } from "axios";
-import { createContext, useContext, useEffect, useMemo, useState } from "react";
+import { AxiosResponse } from "axios";
+import React, { createContext, useContext, useEffect, useMemo, useState } from "react";
 import axiosInstance from "./axios-instance";
 import { ME } from "./Apis";
 import { RootState } from "./store/reducers";
@@ -10,56 +10,29 @@ import { Dispatch } from "redux";
 import { Outlet, useNavigate } from "react-router-dom";
 import { LOGIN } from "./routes";
 
-interface AuthContextProps {
-    token: string | null;
-    setToken: (newToken: string | null) => void;
-}
-
-const AuthContext = createContext<AuthContextProps>({
-    token: null,
-    setToken: () => { },
-});
-
 interface Props {
     setUser: (user: User) => void;
+    accessToken: null | string;
 }
 
-const AuthProvider = ({ setUser }: Props) => {
+const AuthGard = ({ setUser, accessToken }: Props) => {
     const navigate = useNavigate();
-    const [token, setToken_] = useState<string | null>(localStorage.getItem("accessToken"));
-
-    const setToken = (newToken: string | null) => {
-        setToken_(newToken);
-    };
 
     useEffect(() => {
         axiosInstance.get(ME).then((response: AxiosResponse) => {
-            console.log(response.data)
             setUser({
                 ...response.data
             })
         }).catch(() => {
             localStorage.removeItem("accessToken")
-            setToken(null)
             navigate(LOGIN)
-
         })
-    }, [token]);
+    }, [accessToken]);
 
-    const contextValue = useMemo(
-        () => ({
-            token,
-            setToken,
-        }),
-        [token]
-    );
 
-    return <AuthContext.Provider value={contextValue}><Outlet /></AuthContext.Provider>;
+    return <React.Fragment><Outlet /></React.Fragment>;
 };
 
-export const useAuth = (): AuthContextProps => {
-    return useContext(AuthContext);
-};
 
 const mapStateToProps = (state: RootState) => {
     return {
@@ -67,7 +40,7 @@ const mapStateToProps = (state: RootState) => {
         roles: state.user.roleNames,
         firstname: state.user.firstname,
         lastname: state.user.lastname,
-        accessToken: state.user.accessToken,
+        accessToken: state.system.accessToken,
     };
 };
 
@@ -79,4 +52,4 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
 }
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(AuthProvider);
+export default connect(mapStateToProps, mapDispatchToProps)(AuthGard);

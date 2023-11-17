@@ -8,7 +8,6 @@ interface User {
     datenaissance: Date;
     nationality: string;
     adress: string;
-    accessToken: string;
     createdOn:Date;
     lastUpdatedOn:Date;
 }
