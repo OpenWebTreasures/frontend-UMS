@@ -24,7 +24,6 @@ function UsersPage() {
         <div className="container mx-auto p-4">
             <div className="flex flex-wrap justify-between items-center my-3">
                 <h1 className="text-2xl font-bold mb-4 text-main flex items-center"><AiOutlineCaretRight /> List of Users</h1>
-                <button className="bg-main hover:bg-blue-700 text-white font-bold py-1 px-2 rounded-full flex items-center justify-center"><AiFillPlusCircle /> <span className="m-1">Create</span></button>
             </div>
             <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                 <thead className="text-xs text-black uppercase bg-gray-100 ">
