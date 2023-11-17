@@ -1,4 +1,4 @@
-import { HIDE_SIDEBAR, SHOW_SIDEBAR } from "../actionTypes/system";
+import { HIDE_SIDEBAR, REMOVE_ACCESSTOKEN, SET_ACCESSTOKEN, SHOW_SIDEBAR } from "../actionTypes/system";
 
 interface SystemState {
     sidebarOpen: boolean;
@@ -23,14 +23,24 @@ const systemReducer = (state: SystemState = initialState, action: SystemAction) 
             return {
                 ...state,
                 sidebarOpen: true,
-                // ...action.payload,
             };
 
         case HIDE_SIDEBAR:
             return {
                 ...state,
                 sidebarOpen: false,
-                // ...action.payload,
+            };
+
+        case SET_ACCESSTOKEN:
+            return {
+                ...state,
+                ...action.payload,
+            };
+
+        case REMOVE_ACCESSTOKEN:
+            return {
+                ...state,
+                accessToken: null,
             };
         default:
             return state;

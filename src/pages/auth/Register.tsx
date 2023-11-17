@@ -35,7 +35,7 @@ function Register() {
     confirmPassword: "",
   });
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     if (formdata.password !== formdata.confirmPassword) {
@@ -59,7 +59,6 @@ function Register() {
         navigate(LOGIN);
       })
     } catch (error) {
-      console.log("errrrrrrrrrrrrrrrrr")
       setErrorMessage("Erreur lors de la creation du compte!");
     }
   };
