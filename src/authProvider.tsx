@@ -20,7 +20,11 @@ const AuthContext = createContext<AuthContextProps>({
     setToken: () => { },
 });
 
-const AuthProvider = () => {
+interface Props {
+    setUser: (user: User) => void;
+}
+
+const AuthProvider = ({ setUser }: Props) => {
     const navigate = useNavigate();
     const [token, setToken_] = useState<string | null>(localStorage.getItem("accessToken"));
 
@@ -30,6 +34,7 @@ const AuthProvider = () => {
 
     useEffect(() => {
         axiosInstance.get(ME).then((response: AxiosResponse) => {
+            console.log(response.data)
             setUser({
                 ...response.data
             })
