@@ -1,6 +1,6 @@
 
 import { useEffect, useState } from "react";
-import { AiFillPlusCircle, AiOutlineCaretRight } from "react-icons/ai";
+import { AiOutlineCaretRight } from "react-icons/ai";
 import axiosInstance from "../axios-instance";
 import { AxiosResponse } from "axios";
 import User from "../interfaces/userInterface";

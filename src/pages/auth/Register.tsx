@@ -3,7 +3,7 @@ import { BASEURL, LOGIN } from "../../routes";
 import { ChangeEvent, useState } from "react";
 import axios from "axios";
 import Select, { SingleValue } from 'react-select';
-import { NationalityOption, nationalities } from "../../nationalitiesOptions";
+import { NationalityOption, nationalities } from "../../utils/nationalitiesOptions";
 
 interface FormData {
   firstname: string;

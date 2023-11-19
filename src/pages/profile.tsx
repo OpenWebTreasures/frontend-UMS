@@ -3,7 +3,7 @@ import User from "../interfaces/userInterface";
 import axiosInstance from "../axios-instance";
 import { CHANGE_SELF_PASSWORD, ME, UPDATE_SELF_USER_DETAILS } from "../Apis";
 import { MdSecurity } from "react-icons/md";
-import { AxiosResponse } from "axios";
+import Button from "../components/button";
 
 function ProfilePage() {
 
@@ -18,12 +18,20 @@ function ProfilePage() {
         })
     }, [])
 
-    const handleChangePassword = (event: React.FormEvent<HTMLFormElement>) => {
+    const handleChangePassword = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         const passwordInput = event.currentTarget.password.value;
-        axiosInstance.post(CHANGE_SELF_PASSWORD, { username: details?.username, password: passwordInput }).then((response: AxiosResponse) => {
-            response.status === 200 ? setpwdMessage({ status: true, message: "Password changed Successfully" }) : setpwdMessage({ status: false, message: "Something Went Wrong !" });
-        })
+        const currentPassword = event.currentTarget.currentPassword.value;
+        await axiosInstance.post(CHANGE_SELF_PASSWORD, { username: details?.username, password: passwordInput, currentPassword: currentPassword })
+            .then((response) => {
+                if (response.status === 200)
+                    setpwdMessage({ status: true, message: "Password changed Successfully" });
+                else
+                    setpwdMessage({ status: false, message: "Something Went Wrong !" });
+            })
+            .catch(error => {
+                console.log("Error", error);
+            })
     }
 
     const handleChangeDetails = (event: React.FormEvent<HTMLFormElement>) => {
@@ -43,7 +51,6 @@ function ProfilePage() {
             setdetailsMessage({ status: false, message: "Something Went Wrong !" })
         })
     }
-
 
     return (
         <div className="flex flex-wrap justify-center ">
@@ -146,7 +153,7 @@ function ProfilePage() {
                         />
                     </label>
                     <div className="flex justify-end m-3">
-                        <button type="submit" className="rounded-md font-bold hover:bg-blue-500 hover:text-white p-2 flex items-center border-2 border-blue-500 bg-blue-50">Submit</button>
+                        <Button type="submit">Submit</Button>
                     </div>
                 </form>
 
@@ -171,18 +178,23 @@ function ProfilePage() {
                     <form onSubmit={handleChangePassword} className="mt-2">
                         <div className="flex flex-col space-y-5">
                             <label htmlFor="password">
+                                <p className="font-medium text-slate-700 pb-2">Current Password</p>
+                                <input id="currentPassword" name="currentPassword" type="password" autoComplete="true" required className="w-full py-3 border border-slate-200 rounded-lg px-3 focus:outline-none focus:border-slate-500 hover:shadow" placeholder="Current Password" />
+                            </label>
+
+                            <label htmlFor="password">
                                 <p className="font-medium text-slate-700 pb-2">New Password</p>
                                 <input id="password" name="password" type="password" autoComplete="true" required className="w-full py-3 border border-slate-200 rounded-lg px-3 focus:outline-none focus:border-slate-500 hover:shadow" placeholder="New Password" />
                             </label>
 
-                            <button type="submit" className="w-full py-3 font-medium text-white bg-indigo-600 hover:bg-indigo-500 rounded-lg border-indigo-500 hover:shadow inline-flex space-x-2 items-center justify-center">
+                            <Button type="submit" additionalClass={"flex justify-center items-center"}>
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6">
                                     <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 5.25a3 3 0 013 3m3 0a6 6 0 01-7.029 5.912c-.563-.097-1.159.026-1.563.43L10.5 17.25H8.25v2.25H6v2.25H2.25v-2.818c0-.597.237-1.17.659-1.591l6.499-6.499c.404-.404.527-1 .43-1.563A6 6 0 1121.75 8.25z" />
                                 </svg>
-
                                 <span>Change password</span>
-                            </button>
+                            </Button>
                         </div>
+
                     </form>
                 </div>
             </div>

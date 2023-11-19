@@ -30,7 +30,7 @@ function RolesPage() {
                 <div className="flex flex-wrap justify-between items-center my-3">
                     <h1 className="text-2xl font-bold mb-4 text-main flex items-center"><AiOutlineCaretRight /> List of Roles</h1>
                     <Button type="submit" additionalClass={"flex items-center"} onClick={() => setShowModal(true)} >
-                        <AiFillPlusCircle /> <span className="m-1">Create</span>
+                        <AiFillPlusCircle /> <span className="mx-1">Create</span>
                     </Button>
                 </div>
                 <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
