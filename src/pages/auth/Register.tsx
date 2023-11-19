@@ -4,6 +4,7 @@ import { ChangeEvent, useState } from "react";
 import axios from "axios";
 import Select, { SingleValue } from 'react-select';
 import { NationalityOption, nationalities } from "../../utils/nationalitiesOptions";
+import { useToast } from "../../hooks/toast/ToastProvider";
 
 interface FormData {
   firstname: string;
@@ -18,6 +19,8 @@ interface FormData {
 }
 
 function Register() {
+
+  const toast = useToast();
 
   const navigate = useNavigate();
 
@@ -56,9 +59,11 @@ function Register() {
 
     try {
       await axios.post(`${BASEURL}auth/register`, userEntityDto).then(() => {
-        navigate(LOGIN);
+        // navigate(LOGIN);
+        toast?.pushSuccess("Your account has been created successfully", 3000)
       })
     } catch (error) {
+      toast?.pushError("Error Creating Account !", 7000)
       setErrorMessage("Erreur lors de la creation du compte!");
     }
   };

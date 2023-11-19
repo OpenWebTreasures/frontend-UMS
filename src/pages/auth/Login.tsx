@@ -7,9 +7,10 @@ import User from "../../interfaces/userInterface";
 import axios, { AxiosResponse } from "axios";
 import { Link, NavigateFunction, useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { REGISTER } from "../../routes";
+import { DASHBOARD, REGISTER } from "../../routes";
 import { setAccessToken } from "../../store/actions/system";
 import Button from "../../components/button";
+import { useToast } from "../../hooks/toast/ToastProvider";
 
 interface Props {
     username: string;
@@ -23,6 +24,7 @@ interface Props {
 function Login(props: Partial<Props>) {
 
     const navigate: NavigateFunction = useNavigate();
+    const toast = useToast();
 
     const [loginErr, setLoginErr] = useState(false);
 
@@ -42,7 +44,8 @@ function Login(props: Partial<Props>) {
                 localStorage.setItem('accessToken', accessToken);
                 props.setAccessToken?.(accessToken)
             }).then(() => {
-                navigate("/dashboard")
+                toast?.pushSuccess("Welcome Back",3000)
+                navigate(DASHBOARD)
             })
 
         } catch (error) {
