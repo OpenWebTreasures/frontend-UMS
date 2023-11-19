@@ -16,6 +16,7 @@ import RoleDetails from './pages/roledetails.tsx';
 import ProfilePage from './pages/profile.tsx';
 import AuthGard from './authProvider.tsx';
 import ToastProvider from './hooks/toast/ToastProvider.tsx';
+import DashboardMainOutlet from './pages/dashboardMainOutlet/index.tsx';
 
 
 
@@ -37,6 +38,7 @@ const router = createBrowserRouter([
         path: DASHBOARD,
         element: <DashboardLayout />,
         children: [
+          { path: DASHBOARD + "/", element: <DashboardMainOutlet /> },
           { path: PROFILE, element: <ProfilePage /> },
           { path: USERS, element: <UsersPage /> },
           { path: USER_DETAILS, element: <UserDetails /> },
@@ -57,8 +59,8 @@ const router = createBrowserRouter([
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <Provider store={store}>
-    <ToastProvider variant={"top_right"}>
-      <RouterProvider router={router} />
+      <ToastProvider variant={"top_right"}>
+        <RouterProvider router={router} />
       </ToastProvider>
     </Provider>
   </React.StrictMode>,
