@@ -2,7 +2,7 @@ import React from 'react';
 
 interface CardProps {
     title: string;
-    amount: string;
+    amount: string | number;
     description: string;
 }
 

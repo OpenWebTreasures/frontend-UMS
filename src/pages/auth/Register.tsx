@@ -59,7 +59,7 @@ function Register() {
 
     try {
       await axios.post(`${BASEURL}auth/register`, userEntityDto).then(() => {
-        // navigate(LOGIN);
+        navigate(LOGIN);
         toast?.pushSuccess("Your account has been created successfully", 3000)
       })
     } catch (error) {
@@ -71,10 +71,6 @@ function Register() {
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     setFormdata((prevFormData) => {
-      if (prevFormData === null) {
-        return null;
-      }
-
       return {
         ...prevFormData,
         [name]: value,
@@ -142,7 +138,7 @@ function Register() {
                 <label htmlFor="nationality" className="block text-sm text-main font-bold leading-6 text-gray-900">
                   Date Of Birth
                 </label>
-                <Select id="nationality" name="nationality" className="text-main font-bold" options={nationalities} onChange={(e: SingleValue<NationalityOption>) => { setFormdata(prev => ({ ...prev, "nationality": e.value })) }} />
+                <Select id="nationality" name="nationality" className="text-main font-bold" options={nationalities} onChange={(e: SingleValue<NationalityOption>) => { e && setFormdata(prev => ({ ...prev, "nationality": e.value })) }} />
               </div>
 
               <div className="mb-4">

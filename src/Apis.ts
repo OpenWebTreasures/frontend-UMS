@@ -3,6 +3,7 @@ export const GET_ALL_USERS = "api/v1/users";
 export const GET_USER_BY_ID = "api/v1/users/{id}";
 export const ME = "api/v1/users/me";
 export const DELETE_USER_BY_ID = "api/v1/users/{id}";
+export const COUNT_USERS = "api/v1/users/countusers";
 
 export const GET_ALL_FEATURES = "api/v1/features";
 

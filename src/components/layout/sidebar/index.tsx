@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import { connect } from "react-redux";
 import { Location, NavLink, useLocation } from "react-router-dom";
 import { hideSidebar, showSidebar } from "../../../store/actions/system";

@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import './index.css'
-import { Navigate, Outlet, RouterProvider, createBrowserRouter, } from 'react-router-dom';
+import { RouterProvider, createBrowserRouter, } from 'react-router-dom';
 import LandingPage from './pages/Landing/index.tsx';
 import Login from './pages/auth/Login.tsx';
 import Register from './pages/auth/Register.tsx';
@@ -15,7 +15,6 @@ import UserDetails from './pages/userdetails.tsx';
 import RoleDetails from './pages/roledetails.tsx';
 import ProfilePage from './pages/profile.tsx';
 import AuthGard from './authProvider.tsx';
-import ToastProvider from './hooks/toast/ToastProvider.tsx';
 import DashboardMainOutlet from './pages/dashboardMainOutlet/index.tsx';
 
 
@@ -59,9 +58,7 @@ const router = createBrowserRouter([
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <Provider store={store}>
-      <ToastProvider variant={"top_right"}>
         <RouterProvider router={router} />
-      </ToastProvider>
     </Provider>
   </React.StrictMode>,
 );

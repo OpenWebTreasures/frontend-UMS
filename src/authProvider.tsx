@@ -1,5 +1,5 @@
 import { AxiosResponse } from "axios";
-import React, { createContext, useContext, useEffect, useMemo, useState } from "react";
+import React, { useEffect, } from "react";
 import axiosInstance from "./axios-instance";
 import { ME } from "./Apis";
 import { RootState } from "./store/reducers";
@@ -19,6 +19,7 @@ const AuthGard = ({ setUser, accessToken }: Props) => {
     const navigate = useNavigate();
 
     useEffect(() => {
+        console.log("Dummy Parent :o ")
         axiosInstance.get(ME).then((response: AxiosResponse) => {
             setUser({
                 ...response.data

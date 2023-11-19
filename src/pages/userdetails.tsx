@@ -9,19 +9,14 @@ import { CHANGE_ANY_USER_PASSWORD, CHANGE_USER_ROLES, GET_ALL_ROLES, GET_USER_BY
 import { AxiosResponse } from "axios";
 import Role from "../interfaces/roleInterface";
 import Button from "../components/button";
-
-
-
+import { useToast } from "../hooks/toast/ToastProvider";
 
 function UserDetails() {
+    const toast = useToast();
 
     const [user, setUser] = useState<null | Partial<User>>(null);
     const [roles, setRoles] = useState<[] | { value: string; label: string; }[]>([]);
     const [selectedRoles, setSelectedRoles] = useState<MultiValue<{ value: string; label: string; }>>([]);
-
-    const [pwdMessage, setpwdMessage] = useState<null | { status: boolean; message: string; }>(null);
-    const [detailsMessage, setdetailsMessage] = useState<null | { status: boolean; message: string; }>(null);
-
 
     const { userid } = useParams();
 
@@ -31,7 +26,7 @@ function UserDetails() {
             .then(async (response) => {
                 const roles = response.data.map((el: Role) => ({ value: el.name, label: el.name }));
                 setRoles(roles);
-                await axiosInstance.get(GET_USER_BY_ID.replace("{id}", userid))
+                userid && await axiosInstance.get(GET_USER_BY_ID.replace("{id}", userid))
                     .then((userResponse) => {
                         const user: User = userResponse.data;
                         setUser(user);
@@ -54,20 +49,21 @@ function UserDetails() {
         event.preventDefault();
         const passwordInput = event.currentTarget.password.value;
         axiosInstance.post(CHANGE_ANY_USER_PASSWORD, { username: user?.username, password: passwordInput }).then((response: AxiosResponse) => {
-            response.status === 200 ? setpwdMessage({ status: true, message: "Password changed Successfully" }) : setpwdMessage({ status: false, message: "Something Went Wrong !" });
+            response.status === 200 ? toast?.pushSuccess("Password changed Successfully", 3000) : toast?.pushError("Something Went Wrong on Password Change!", 3000);
         })
     }
 
     const handleChangeRoles = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         axiosInstance.post(CHANGE_USER_ROLES, { username: user?.username, roleNames: selectedRoles.map(el => (el.value)) }).then((response: AxiosResponse) => {
+            response.status === 200 ? toast?.pushSuccess("Roles Assigned Successfully", 3000) : toast?.pushError("Something Went Wrong on Role Config!", 3000);
 
         })
     }
 
     const handleChangeDetails = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        axiosInstance.put(UPDATE_ANY_USER_DETAILS.replace('{username}', user?.username), {
+        user?.username && axiosInstance.put(UPDATE_ANY_USER_DETAILS.replace('{username}', user?.username), {
             firstname: event.currentTarget.firstname.value,
             lastname: event.currentTarget.lastname.value,
             email: event.currentTarget.email.value,
@@ -76,10 +72,10 @@ function UserDetails() {
             adress: event.currentTarget.adress.value,
             username: event.currentTarget.username.value,
         }).then((response: AxiosResponse) => {
-            (response?.status && (response?.status === 200)) ? setdetailsMessage({ status: true, message: "Details changed Successfully" }) : setdetailsMessage({ status: false, message: "Something Went Wrong !" });
+            response.status === 200 ? toast?.pushSuccess("User Details Updated Successfully", 3000) : toast?.pushError("Something Went Wrong on User Update!", 3000);
 
         }).catch(() => {
-            setdetailsMessage({ status: false, message: "Something Went Wrong !" })
+            toast?.pushError("Something Went Wrong on User Update!", 3000);
         })
     }
 
@@ -88,13 +84,6 @@ function UserDetails() {
         <div className="flex flex-wrap justify-center ">
             <div className="p-4 m-2 rounded-lg border-2 bg-blue-50 lg:w-1/2 md:w-full sm:w-full max-w-[550px]">
                 <h1 className="text-3xl font-bold">User Details : <span className="text-black"></span></h1>
-                {
-                    detailsMessage && (
-                        <div className={"p-4 mb-4 text-sm border-2 rounded-lg " + (detailsMessage.status ? "text-green-800 bg-green-50" : "text-red-800 bg-red-50")} role="alert">
-                            <span className="font-medium">{detailsMessage.status ? "Great " : "Error ! "}</span> {detailsMessage.message}
-                        </div>
-                    )
-                }
                 <form onSubmit={handleChangeDetails} className="p-4">
                     <label className="block">
                         <span className="font-medium text-slate-700 pb-2">
@@ -213,13 +202,6 @@ function UserDetails() {
                 <div className="bg-white p-8 m-2 rounded-xl shadow shadow-slate-300 min-w-[330px]">
                     <h1 className="text-2xl font-bold flex items-center"><MdSecurity />Change Password</h1>
                     <p className="text-slate-500">Fill up the form to change the password</p>
-                    {
-                        pwdMessage && (
-                            <div className={"p-4 text-sm border-2 rounded-lg " + (pwdMessage.status ? "text-green-800 bg-green-50" : "text-red-800 bg-red-50")} role="alert">
-                                <span className="font-medium">{pwdMessage.status ? "Great " : "Error ! "}</span> {pwdMessage.message}
-                            </div>
-                        )
-                    }
                     <form onSubmit={handleChangePassword} className="mt-2">
                         <div className="flex flex-col space-y-5">
                             <label htmlFor="password">

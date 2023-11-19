@@ -70,23 +70,27 @@
 // export default connect(mapStateToProps, mapDispatchToProps)(DashboardLayout);
 
 
+import ToastProvider from "../../hooks/toast/ToastProvider";
 import Header from "./header";
 import SideBar from "./sidebar";
 import { Outlet } from "react-router-dom";
 
 function DashboardLayout() {
     return (
-        <div className="flex h-screen overflow-hidden">
-            <SideBar />
-            <div className="flex flex-col flex-1 overflow-y-auto overflow-x-hidden">
-                <Header />
-                <main>
-                    <div className="container mt-5 max-w-9xl mx-auto">
-                        <Outlet />
-                    </div>
-                </main>
+        <ToastProvider variant={"top_right"}>
+
+            <div className="flex h-screen overflow-hidden">
+                <SideBar />
+                <div className="flex flex-col flex-1 overflow-y-auto overflow-x-hidden">
+                    <Header />
+                    <main>
+                        <div className="container mt-5 max-w-9xl mx-auto">
+                            <Outlet />
+                        </div>
+                    </main>
+                </div>
             </div>
-        </div>
+        </ToastProvider>
     )
 }
 
