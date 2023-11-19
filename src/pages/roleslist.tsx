@@ -6,6 +6,7 @@ import Role from "../interfaces/roleInterface";
 import { AiFillPlusCircle, AiOutlineCaretRight } from "react-icons/ai";
 import { ROLE_DETAILS } from "../routes";
 import CreateRoleModal from "./createRoleModal";
+import Button from "../components/button";
 
 
 function RolesPage() {
@@ -28,11 +29,9 @@ function RolesPage() {
             <div className="container mx-auto p-4">
                 <div className="flex flex-wrap justify-between items-center my-3">
                     <h1 className="text-2xl font-bold mb-4 text-main flex items-center"><AiOutlineCaretRight /> List of Roles</h1>
-                    <button
-                        onClick={() => setShowModal(true)}
-                        className="bg-main hover:bg-blue-700 text-white font-bold py-1 px-2 rounded-full flex items-center justify-center">
+                    <Button type="submit" additionalClass={"flex items-center"} onClick={() => setShowModal(true)} >
                         <AiFillPlusCircle /> <span className="m-1">Create</span>
-                    </button>
+                    </Button>
                 </div>
                 <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                     <thead className="text-xs text-black uppercase bg-gray-100 ">

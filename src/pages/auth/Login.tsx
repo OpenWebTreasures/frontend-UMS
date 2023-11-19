@@ -9,6 +9,7 @@ import { Link, NavigateFunction, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { REGISTER } from "../../routes";
 import { setAccessToken } from "../../store/actions/system";
+import Button from "../../components/button";
 
 interface Props {
     username: string;
@@ -64,7 +65,6 @@ function Login(props: Partial<Props>) {
                     {loginErr && (<div className="bg-red-100 border border-red-400 text-red-700 my-2 px-4 py-3 rounded" role="alert">
                         <strong className="font-bold">Holy smokes!</strong>
                         <span className="block sm:inline"> Please Check and enter valid Credentials !</span>
-
                     </div>)}
                     <form className="space-y-6" onSubmit={handleLogin}>
                         <div>
@@ -82,7 +82,7 @@ function Login(props: Partial<Props>) {
                         </div>
 
                         <div>
-                            <button type="submit" className="flex w-full justify-center rounded-md bg-main px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:scale-105 hover:border-2 hover:border-blue-300 hover:bg-white hover:text-main focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Sign in</button>
+                            <Button type="submit" additionalClass={"w-full"}>Sign in</Button>
                         </div>
                     </form>
 
