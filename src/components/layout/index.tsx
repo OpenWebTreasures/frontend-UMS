@@ -77,7 +77,7 @@ import { Outlet } from "react-router-dom";
 
 function DashboardLayout() {
     return (
-        <ToastProvider variant={"top_right"}>
+        <ToastProvider variant={"top_middle"}>
 
             <div className="flex h-screen overflow-hidden">
                 <SideBar />
